@@ -1,0 +1,72 @@
+{
+  "checks": [
+    "Upper and middle mobile rows select their actual directions instead of the same lower look.",
+    "Quick tap visibly responds, then returns to a neutral frame.",
+    "New touch cancels stale return; horizontal dragging tracks and settles on release.",
+    "Vertical swiping scrolls normally and cancels tracking cleanly.",
+    "Gestures on mobile copy do not activate character tracking.",
+    "Touch slider retains its selected frame after finger release.",
+    "Small-screen hint fits; reduced motion presents a truthful instruction.",
+    "Desktop selected targets are unchanged; upper-quarter reset still reaches neutral."
+  ],
+  "errors": [],
+  "beforeRows": [
+    {
+      "row": 0.15,
+      "target": 153.4185303545627
+    },
+    {
+      "row": 0.45,
+      "target": 153.4185303545627
+    },
+    {
+      "row": 0.85,
+      "target": 172.55945162492085
+    }
+  ],
+  "beforeQuickTap": {
+    "frame": 116.89399875727185,
+    "target": 114,
+    "velocity": 190,
+    "mode": "follow",
+    "active": false,
+    "playing": false,
+    "ready": true,
+    "raf": 503,
+    "reduced": false
+  },
+  "afterRows": [
+    {
+      "row": 0.15,
+      "target": 35.9770705002026
+    },
+    {
+      "row": 0.45,
+      "target": 128.3636364347729
+    },
+    {
+      "row": 0.85,
+      "target": 172.55945162492085
+    }
+  ],
+  "afterQuickTap": {
+    "frame": 115.24944281775323,
+    "target": 128.3636364347729,
+    "velocity": 110.84605480326367,
+    "mode": "follow",
+    "active": true,
+    "playing": false,
+    "ready": true,
+    "raf": 835,
+    "reduced": false
+  },
+  "desktopTargets": [
+    153.5214767483138,
+    153.5214767483138,
+    163.2094117647059,
+    209.4593103448276,
+    209.4593103448276,
+    199.64153846153846,
+    114
+  ]
+}

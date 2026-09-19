@@ -1,0 +1,132 @@
+{
+  "url": "http://127.0.0.1:5182",
+  "checks": [
+    {
+      "name": "new source, full sprite and optical-flow renderer",
+      "detail": {
+        "source": {
+          "file": "Character_looking_around_animation_1080p_20260919225025.mp4",
+          "sha256": "49b7cdbafa6cf1883e7fcf8fe4318f3e8af42749942bca8020a0bfd194ef154a",
+          "width": 1920,
+          "height": 1080
+        },
+        "renderer": "webgl2-optical-flow",
+        "frames": 240,
+        "frame": 114,
+        "sheet": {
+          "width": 192000,
+          "height": 450
+        },
+        "gl": 0
+      }
+    },
+    {
+      "name": "all eight cursor directions and bounded movement",
+      "detail": {
+        "poses": [
+          {
+            "direction": "left",
+            "frame": 133.88888888888889
+          },
+          {
+            "direction": "right",
+            "frame": 95.76951915240424
+          },
+          {
+            "direction": "upper-right",
+            "frame": 68.93688888888889
+          },
+          {
+            "direction": "up",
+            "frame": 46.5308176100629
+          },
+          {
+            "direction": "upper-left",
+            "frame": 34.272894550601556
+          },
+          {
+            "direction": "lower-left",
+            "frame": 162.07999999999998
+          },
+          {
+            "direction": "down",
+            "frame": 181
+          },
+          {
+            "direction": "lower-right",
+            "frame": 208.91895785440613
+          }
+        ],
+        "medianFrameMs": 16.699999999999818,
+        "p95FrameMs": 16.799999999999272,
+        "draws": 511,
+        "renderMs": 500.8000000715256,
+        "maxRenderMs": 8.799999997019768,
+        "maxMotionStep": 3.1920000000000357,
+        "maxFrameStep": 5.210301911340025,
+        "averageRenderMs": 0.9800391390832203
+      }
+    },
+    {
+      "name": "stationary hold and nearby idle return",
+      "detail": {
+        "frame": 225,
+        "target": 225,
+        "velocity": 0,
+        "mode": "follow",
+        "active": false,
+        "playing": false,
+        "ready": true,
+        "raf": 0,
+        "reduced": false
+      }
+    },
+    {
+      "name": "full scrub range and whole-frame keyboard controls",
+      "detail": {
+        "min": 0,
+        "max": 239
+      }
+    },
+    {
+      "name": "complete chronological playback, all 240 frames rendered",
+      "detail": {
+        "count": 240,
+        "ending": 239,
+        "metrics": {
+          "draws": 599,
+          "renderMs": 641.1000003963709,
+          "maxRenderMs": 6.199999988079071,
+          "maxMotionStep": 2.6685672816001045,
+          "maxFrameStep": 0.4032000000000835,
+          "averageRenderMs": 1.0702838070056275
+        },
+        "gl": 0
+      }
+    },
+    {
+      "name": "mobile layout and reduced motion",
+      "detail": {
+        "width": 390,
+        "overflow": false
+      }
+    },
+    {
+      "name": "no JavaScript or WebGL errors",
+      "detail": []
+    },
+    {
+      "name": "missing motion data retains working sprite animation",
+      "detail": {
+        "renderer": "canvas-blend"
+      }
+    },
+    {
+      "name": "missing sprite retains original poster",
+      "detail": {
+        "visible": true
+      }
+    }
+  ],
+  "errors": []
+}

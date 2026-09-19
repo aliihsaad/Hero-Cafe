@@ -1,0 +1,42 @@
+# Generated frames, reports, local previews, and backups
+/build/
+/build2/
+/output/
+/backups/
+/tasks/
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+node_modules/
+
+# Local agent/editor state and credentials
+.claude/
+.codex/
+.agents/
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+
+# Superseded local experiments (kept on disk, not part of this application)
+/gaze-map.js
+/pose-renderer.js
+/Animate_*.mp4
+/pipeline/0[1-8]_*.py
+/pipeline/matte.py
+/pipeline/pose_features.py
+/pipeline/build_poses.py
+/assets/bunny-sheet*
+/assets/cafe-plate.webp
+/assets/character-poses.png
+/assets/sprite.json
+/assets/Boxing_Complete/
+/assets/Nunito_Complete/
+/assets/fonts/Boxing-*
