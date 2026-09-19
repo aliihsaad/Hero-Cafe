@@ -1,0 +1,19 @@
+# Deploy only the static site and its required assets.
+/*
+!/index.html
+!/styles.css
+!/hero.js
+!/motion-renderer.js
+!/controls.js
+!/vercel.json
+!/assets/
+/assets/*
+!/assets/character-sheet.png
+!/assets/character-motion.png
+!/assets/sequence.json
+!/assets/poster.webp
+!/assets/fonts/
+/assets/fonts/*
+!/assets/fonts/Nunito-Variable.woff2
+!/assets/fonts/Nunito-VariableItalic.woff2
+!/assets/fonts/Nunito-LICENSE.txt

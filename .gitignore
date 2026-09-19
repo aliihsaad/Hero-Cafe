@@ -10,6 +10,7 @@ __pycache__/
 .venv/
 venv/
 node_modules/
+.vercel/
 
 # Local agent/editor state and credentials
 .claude/

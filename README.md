@@ -29,6 +29,21 @@ Open **[http://127.0.0.1:5183](http://127.0.0.1:5183)**. Use `python3` instead o
 
 Serve the page over HTTP: opening `index.html` directly with `file://` will prevent the sequence manifest from loading in typical browser configurations. The included `devserver.py` is an alternative development server with no-cache headers.
 
+## Deploy on Vercel
+
+Import this GitHub repository into Vercel. The committed `vercel.json` selects **Other** as the framework, skips installation/build commands, and serves the repository root. No environment variables, Python runtime, or FFmpeg execution are needed on the host; the animation assets are already built.
+
+`.vercelignore` limits deployment uploads to the website and required animation/font assets. The source video, documentation, pipeline, and local intermediate files remain outside the deployment. When the Vercel project is connected to GitHub, pushes to its production branch deploy automatically.
+
+For the CLI, link the project to your own Vercel account/team before deploying:
+
+```sh
+vercel link
+vercel --prod
+```
+
+See [Vercel's static-site build settings](https://vercel.com/docs/builds/configure-a-build) for the equivalent dashboard configuration.
+
 ## Try the interaction
 
 | Action | Result |
