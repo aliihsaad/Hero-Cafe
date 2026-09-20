@@ -1,12 +1,17 @@
 # Verification records
 
-These are recorded local development checks, not a hosted test service or a claim of support for every browser/device.
+These are recorded development and deployment checks, not a hosted test service or a claim of support for every browser/device.
 
 | Record | Scope |
 | --- | --- |
 | [Source verification](verification/source.json) | All 240 sprite cells matched their scaled source frames in an FFmpeg pixel-MD5 comparison; zero mismatches. |
 | [Renderer verification](verification/renderer.json) | Source identity, complete chronological replay, interpolation, keyboard scrub endpoints, reduced motion, and missing-asset fallbacks. Recorded before later input-zone changes. |
 | [Mobile regression verification](verification/mobile.json) | Current stacked-layout touch mapping, quick taps, drag release, scroll cancellation, retained slider selection, narrow layout, and unchanged desktop target samples. |
+| [Lossless runtime build](verification/runtime-build.json) | Every pixel in all 24 frame/vector strip pairs matches its canonical atlas crop. |
+| [Runtime browser verification](verification/runtime-browser.json) | Seven integer/fractional poses match the previous renderer pixel-for-pixel, including strip boundaries. Full replay under delayed loading, a four-page cache, desktop tracking, and mobile taps pass. |
+| [Live Vercel verification](verification/runtime-live.json) | Chrome checks against the public production URL: all 240 frames, no giant-atlas requests, delayed loading without catch-up jumps, desktop neutral return, mobile tap response, and no JavaScript/WebGL errors. |
+
+The strip runtime was verified on **20 September 2026**. The live run used Chrome with a 1440 × 900 desktop viewport and 390 × 844 touch emulation. The cache peaked at four decoded strip pairs (64,768,000 bytes); this excludes browser, GPU, and network overhead.
 
 The renderer run measured a median display interval of 16.7ms in local Chromium at 1440 × 900. Timing depends on the host hardware and browser; it is not a performance guarantee. The mobile run used Chromium touch emulation at 390 × 844 and a 320px layout check. Physical iOS/Android verification was not performed.
 

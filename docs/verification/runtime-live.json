@@ -1,0 +1,22 @@
+{
+  "base": "https://hero-cafe.vercel.app",
+  "checks": [
+    "Starts without downloading or decoding either giant canonical atlas.",
+    "All 240 frames replay under delayed loading, within four cached strips and without catch-up jumps.",
+    "Desktop follow and top-quarter neutral return work.",
+    "Mobile tap responds and settles at neutral."
+  ],
+  "errors": [],
+  "replay": {
+    "frames": 240,
+    "cache": {
+      "pages": 4,
+      "peakPages": 4,
+      "limit": 4,
+      "pending": 0,
+      "decodedBytes": 64768000
+    },
+    "maxFrameStep": 0.24959999999998672,
+    "glError": 0
+  }
+}

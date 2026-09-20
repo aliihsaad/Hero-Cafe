@@ -2,6 +2,8 @@
 
 **Your new coffee buddy.** An interactive café hero built with vanilla JavaScript, a complete video sprite sheet, and motion interpolation. Move around the scene and the rabbit follows your attention; leave it alone and it eases back to a recorded neutral pose.
 
+**[Try the live hero](https://hero-cafe.vercel.app)**
+
 ![Hero Café desktop preview: a white rabbit holding coffee, warm peach surroundings, rounded typography, and a compact Say hello button.](docs/hero-preview.png)
 
 ## Features
