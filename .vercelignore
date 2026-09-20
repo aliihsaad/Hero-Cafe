@@ -3,13 +3,13 @@
 !/index.html
 !/styles.css
 !/hero.js
+!/frame-store.js
 !/motion-renderer.js
 !/controls.js
 !/vercel.json
 !/assets/
 /assets/*
-!/assets/character-sheet.png
-!/assets/character-motion.png
+!/assets/runtime/
 !/assets/sequence.json
 !/assets/poster.webp
 !/assets/fonts/

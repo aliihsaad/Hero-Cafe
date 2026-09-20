@@ -25,8 +25,8 @@
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   const state = { frame: 0, target: 0, velocity: 0, mode: 'follow', active: false, playing: false, ready: false };
   const view = { w: 1, h: 1, dpr: 1, x: 0, y: 0, dw: 1, dh: 1 };
-  let meta, sheet, motionImage, renderer, raf = 0, previous = 0, visible = true, pair = [-1, -1];
-  let position = 0, contextLost = false;
+  let meta, store, renderer, raf = 0, previous = 0, visible = true, pair = [-1, -1];
+  let position = 0, contextLost = false, assetFailed = false;
   let lastDraw = NaN, sliderHeld = false, manualTarget = false, lastPointer = null;
   let touchContact = null, touchReturnTimer = 0;
   const drawnFrames = new Set();
@@ -62,19 +62,23 @@
   }
 
   function render() {
-    if (state.frame === lastDraw) return;
+    if (state.frame === lastDraw) return true;
+    if (!store.ready(state.frame)) { store.prepare(state.frame); return false; }
+    store.prepare(state.frame);
     const start = debug ? performance.now() : 0;
     const f = clamp(state.frame, 0, meta.frames - 1);
     const a = Math.floor(f), b = Math.min(a + 1, meta.frames - 1), mix = f - a;
     for (let slot = 0; slot < 2; slot++) {
       const index = slot ? b : a;
       if (pair[slot] !== index) {
-        cells[slot].drawImage(sheet, index * meta.cell.width, 0, meta.cell.width, meta.cell.height, 0, 0, meta.cell.width, meta.cell.height);
+        const source = store.cell(index);
+        cells[slot].drawImage(source.image, source.x, 0, meta.cell.width, meta.cell.height, 0, 0, meta.cell.width, meta.cell.height);
         pair[slot] = index;
       }
       if (debug && (slot === 0 || mix > 0)) drawnFrames.add(index);
     }
     renderer.draw(a, b, mix, view);
+    store.warm(f, state.playing ? 1 : Math.sign(state.target - f));
     lastDraw = f;
     if (!sliderHeld && !manualTarget) timeline.value = String(f);
     timeline.setAttribute('aria-valuetext', `Frame ${Math.round(f) + 1} of ${meta.frames}`);
@@ -82,6 +86,7 @@
       const elapsed = performance.now() - start;
       metrics.draws++; metrics.renderMs += elapsed; metrics.maxRenderMs = Math.max(metrics.maxRenderMs, elapsed);
     }
+    return true;
   }
 
   function frameToDistance(frame) {
@@ -127,21 +132,23 @@
     raf = 0;
     const dt = Math.min((now - (previous || now)) / 1000, 1 / 30);
     previous = now;
-    const priorFrame = state.frame, priorPosition = position;
+    const priorFrame = state.frame, priorPosition = position, priorVelocity = state.velocity, priorTarget = state.target;
     if (state.playing) {
       state.frame = Math.min(meta.frames - 1, state.frame + dt * meta.fps);
       state.target = state.frame;
       position = frameToDistance(state.frame);
-      if (state.frame >= meta.frames - 1) {
-        state.playing = false; state.active = false;
-        state.target = nearestIdle(state.frame);
-        replay.querySelector('span').textContent = 'Play hello';
-        setStatus('Always happy to see you');
-      }
     } else if (reduced.matches) {
       state.frame = state.target; position = frameToDistance(state.frame); state.velocity = 0;
     } else integrate(dt);
-    render();
+    if (!render()) {
+      // Pause time at the visible pose while downloading, avoiding catch-up jumps.
+      state.frame = priorFrame; state.target = priorTarget; state.velocity = priorVelocity;
+      position = priorPosition; previous = 0; return;
+    }
+    if (state.playing && state.frame >= meta.frames - 1) {
+      state.playing = false; state.active = false; state.target = nearestIdle(state.frame);
+      replay.querySelector('span').textContent = 'Play hello'; setStatus('Always happy to see you');
+    }
     if (debug) {
       metrics.maxFrameStep = Math.max(metrics.maxFrameStep, Math.abs(state.frame - priorFrame));
       metrics.maxMotionStep = Math.max(metrics.maxMotionStep, Math.abs(position - priorPosition));
@@ -151,7 +158,7 @@
     else previous = 0;
   }
   function requestTick() {
-    if (!raf && !contextLost && visible && !document.hidden && state.ready) raf = requestAnimationFrame(tick);
+    if (!raf && !assetFailed && !contextLost && visible && !document.hidden && state.ready) raf = requestAnimationFrame(tick);
   }
   function stopPlayback() {
     state.playing = false;
@@ -292,33 +299,27 @@
     document.body.classList.remove('is-ready');
   });
   canvas.addEventListener('webglcontextrestored', () => {
-    renderer = window.createMotionRenderer(canvas, meta, buffers, motionImage);
+    renderer = window.createMotionRenderer(canvas, meta, buffers, store);
     contextLost = false; lastDraw = NaN; previous = 0;
     document.body.classList.add('is-ready'); requestTick();
   });
 
   async function boot() {
     try {
-      const response = await fetch('assets/sequence.json?v=225025-5');
+      const response = await fetch('assets/sequence.json?v=strips-1');
       if (!response.ok) throw new Error(`Sequence manifest: ${response.status}`);
       meta = await response.json();
       state.frame = state.target = meta.idleFrame;
       position = frameToDistance(meta.idleFrame);
       timeline.max = String(meta.frames - 1);
-      sheet = new Image(); sheet.decoding = 'async'; sheet.src = meta.sheet;
-      const motionReady = (async () => {
-        if (!meta.motion) return;
-        const image = new Image(); image.decoding = 'async'; image.src = meta.motion.src;
-        try {
-          await image.decode();
-          if (image.naturalWidth === meta.frames * meta.motion.width && image.naturalHeight === meta.motion.height * 2) motionImage = image;
-        }
-        catch { /* Original-frame fallback remains usable if motion data fails. */ }
-      })();
-      await Promise.all([sheet.decode(), motionReady]);
-      if (sheet.naturalWidth !== meta.cell.width * meta.frames || sheet.naturalHeight !== meta.cell.height) throw new Error('Sprite dimensions do not match the complete sequence');
+      if (!meta.runtime?.pages?.length) throw new Error('Browser-sized animation strips are missing from the manifest');
+      store = window.createFrameStore(meta, requestTick, error => {
+        assetFailed = true; console.error('[Hero Café]', error);
+        setStatus('Animation could not load. Please refresh.'); hint.textContent = 'Refresh to try again.';
+      });
+      await store.load(meta.idleFrame);
       buffers.forEach(c => { c.width = meta.cell.width; c.height = meta.cell.height; });
-      renderer = window.createMotionRenderer(canvas, meta, buffers, motionImage);
+      renderer = window.createMotionRenderer(canvas, meta, buffers, store);
       state.ready = true; layout(); render();
       document.body.classList.add('is-ready');
       hero.querySelectorAll('button, input').forEach(el => { el.disabled = false; });
@@ -326,11 +327,12 @@
       setStatus(reduced.matches ? 'Motion paused' : 'Always happy to see you');
       new ResizeObserver(layout).observe(stage);
       if (debug) window.__hero = {
-        get state() { return { ...state, raf, reduced: reduced.matches }; },
+        get state() { return { ...state, raf, reduced: reduced.matches, buffering: !store.ready(state.frame) }; },
         get frames() { return meta.frames; }, get drawnFrames() { return [...drawnFrames].sort((a,b) => a-b); },
         get source() { return { ...meta.source }; }, get idleFrames() { return meta.idleFrames || [meta.idleFrame]; },
         get metrics() { return { ...metrics, averageRenderMs: metrics.renderMs / Math.max(1, metrics.draws) }; },
-        get sheet() { return { width: sheet.naturalWidth, height: sheet.naturalHeight }; },
+        get sheet() { return { width: meta.cell.width * meta.frames, height: meta.cell.height, runtimePages: meta.runtime.pages.length }; },
+        get cache() { return store.stats; },
         get view() { return { ...view }; }, gazeFrame,
         get renderer() { return renderer.kind; }, get glError() { return renderer.error || 0; },
         get samples() { return samples.slice(); }, frameToDistance,

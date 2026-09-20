@@ -103,15 +103,16 @@
     let flowIndex = -1;
     let motionEnabled = true;
     function uploadFlow(index) {
-      flowContext.drawImage(motionImage, index * fw, 0, fw, fh * 2, 0, 0, fw, fh * 2);
-      const bytes = flowContext.getImageData(0, 0, fw, fh * 2).data;
+      const source = motionImage.getFrame ? motionImage.getFrame(index) : { image: motionImage, x: index * fw };
+      if (source) flowContext.drawImage(source.image, source.x, 0, fw, fh * 2, 0, 0, fw, fh * 2);
+      const bytes = source ? flowContext.getImageData(0, 0, fw, fh * 2).data : null;
       for (let direction = 0; direction < 2; direction++) {
         const offset = direction * fw * fh * 4;
         const v = vectors[direction];
         for (let p = 0; p < fw * fh; p++) {
           const at = offset + p * 4;
-          const x = bytes[at] * 16 + (bytes[at + 1] >> 4);
-          const y = (bytes[at + 1] & 15) * 256 + bytes[at + 2];
+          const x = bytes ? bytes[at] * 16 + (bytes[at + 1] >> 4) : meta.motion.zero;
+          const y = bytes ? (bytes[at + 1] & 15) * 256 + bytes[at + 2] : meta.motion.zero;
           v[p * 2] = (x - meta.motion.zero) / meta.motion.scale;
           v[p * 2 + 1] = (y - meta.motion.zero) / meta.motion.scale;
         }

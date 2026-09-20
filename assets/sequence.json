@@ -681,5 +681,154 @@
       531.901738,
       532.451738
     ]
+  },
+  "runtime": {
+    "framesPerPage": 10,
+    "pages": [
+      {
+        "start": 0,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-00.png?v=d79b46031db8",
+        "motion": "assets/runtime/motion-00.png?v=0773f282b749"
+      },
+      {
+        "start": 10,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-01.png?v=e893d93a026e",
+        "motion": "assets/runtime/motion-01.png?v=63d694a33ae4"
+      },
+      {
+        "start": 20,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-02.png?v=5e79073ce80f",
+        "motion": "assets/runtime/motion-02.png?v=5be55d634eb5"
+      },
+      {
+        "start": 30,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-03.png?v=7a5519728c99",
+        "motion": "assets/runtime/motion-03.png?v=9d8d4534c685"
+      },
+      {
+        "start": 40,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-04.png?v=accc5042f2ce",
+        "motion": "assets/runtime/motion-04.png?v=2f914b376a25"
+      },
+      {
+        "start": 50,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-05.png?v=74dfd7f48353",
+        "motion": "assets/runtime/motion-05.png?v=6fa15a48b13f"
+      },
+      {
+        "start": 60,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-06.png?v=4a4bba2eda42",
+        "motion": "assets/runtime/motion-06.png?v=74e5ecd9691a"
+      },
+      {
+        "start": 70,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-07.png?v=65ff9370a6b8",
+        "motion": "assets/runtime/motion-07.png?v=0c24ec01bdc1"
+      },
+      {
+        "start": 80,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-08.png?v=03d854146732",
+        "motion": "assets/runtime/motion-08.png?v=c8eb5d18189e"
+      },
+      {
+        "start": 90,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-09.png?v=df985cec2075",
+        "motion": "assets/runtime/motion-09.png?v=c8cf6746b52a"
+      },
+      {
+        "start": 100,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-10.png?v=3a5c512fa26c",
+        "motion": "assets/runtime/motion-10.png?v=2ce53aa89a50"
+      },
+      {
+        "start": 110,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-11.png?v=43451f8799e5",
+        "motion": "assets/runtime/motion-11.png?v=b0ee2cfee9e4"
+      },
+      {
+        "start": 120,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-12.png?v=f37bbf5e7801",
+        "motion": "assets/runtime/motion-12.png?v=9f0310593595"
+      },
+      {
+        "start": 130,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-13.png?v=01a78d7507e8",
+        "motion": "assets/runtime/motion-13.png?v=4b7c0e9ea40b"
+      },
+      {
+        "start": 140,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-14.png?v=e844d1a6a629",
+        "motion": "assets/runtime/motion-14.png?v=1645d900485b"
+      },
+      {
+        "start": 150,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-15.png?v=b02dfb728718",
+        "motion": "assets/runtime/motion-15.png?v=2d42fa1ae824"
+      },
+      {
+        "start": 160,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-16.png?v=d13c5a987c5b",
+        "motion": "assets/runtime/motion-16.png?v=074123007d1e"
+      },
+      {
+        "start": 170,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-17.png?v=27fe032903e4",
+        "motion": "assets/runtime/motion-17.png?v=badf89a0f2bf"
+      },
+      {
+        "start": 180,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-18.png?v=78b4a7bec044",
+        "motion": "assets/runtime/motion-18.png?v=6e838a46babd"
+      },
+      {
+        "start": 190,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-19.png?v=adc0dabe265c",
+        "motion": "assets/runtime/motion-19.png?v=1c1fc2853a9d"
+      },
+      {
+        "start": 200,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-20.png?v=06a2ced9439a",
+        "motion": "assets/runtime/motion-20.png?v=305a0824f33f"
+      },
+      {
+        "start": 210,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-21.png?v=bc4f90a0a6ec",
+        "motion": "assets/runtime/motion-21.png?v=bb09cf1370ea"
+      },
+      {
+        "start": 220,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-22.png?v=61d7d2fe1718",
+        "motion": "assets/runtime/motion-22.png?v=dbc4bdf8e36f"
+      },
+      {
+        "start": 230,
+        "count": 10,
+        "sheet": "assets/runtime/sheet-23.png?v=5cf9ee10136f",
+        "motion": "assets/runtime/motion-23.png?v=130e5e1581d0"
+      }
+    ]
   }
 }

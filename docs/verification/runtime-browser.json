@@ -1,0 +1,23 @@
+{
+  "base": "http://127.0.0.1:5182",
+  "checks": [
+    "Starts without downloading or decoding either giant canonical atlas.",
+    "Seven integer/fractional poses, including strip boundaries, are pixel-identical to the original renderer.",
+    "All 240 frames replay under delayed loading, within four cached strips and without catch-up jumps.",
+    "Desktop follow and top-quarter neutral return work.",
+    "Mobile tap responds and settles at neutral."
+  ],
+  "errors": [],
+  "replay": {
+    "frames": 240,
+    "cache": {
+      "pages": 4,
+      "peakPages": 4,
+      "limit": 4,
+      "pending": 0,
+      "decodedBytes": 64768000
+    },
+    "maxFrameStep": 0.24959999999999383,
+    "glError": 0
+  }
+}

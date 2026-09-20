@@ -13,6 +13,7 @@ Run from the repository root:
 ```sh
 python pipeline/build_sequence.py "Character_looking_around_animation_1080p_20260919225025.mp4"
 python pipeline/build_motion.py
+python pipeline/build_runtime.py
 ```
 
 ## Extraction and sheet assembly
@@ -36,6 +37,7 @@ Inspect the replacement clip and create its own calibration before building:
 ```sh
 python pipeline/build_sequence.py "replacement.mp4" --calibration pipeline/replacement-gaze.json
 python pipeline/build_motion.py
+python pipeline/build_runtime.py
 ```
 
 Keep source frames chronological. The runtime favors nearby candidates when the film contains multiple similar poses. Desktop's side-row adjustment is an additional clip-specific tuning parameter in `hero.js`, so review it when changing the source.
@@ -53,3 +55,9 @@ Outputs:
 Run extraction before motion generation. The motion stage relies on the exact extracted-frame folder identified by the manifest. These intermediate PNGs can occupy substantial disk space; they are excluded from the repository.
 
 After rebuilding, serve the page and check replay, the neutral pose, both side directions, and touch behavior. Refresh any versioned manifest/script URLs used by a caching deployment.
+
+## Browser-sized runtime strips
+
+`build_runtime.py` is the final required stage for the current browser loader. It uses FFmpeg to losslessly crop the canonical sheet and vector atlas into ten-frame horizontal strips, then compares every output pixel with its original using OpenCV. It writes `assets/runtime/`, adds a `runtime` page inventory to the manifest, and records verification in `output/runtime-build.json`.
+
+All 240 source cells remain present at 800 × 450, in their original order. Each vector strip preserves both directions, including the motion from its last frame to the following page's first frame. The browser's four-page cache avoids decoding the entire 192,000px canonical image. The canonical atlases remain in Git for reproducibility, but `.vercelignore` excludes them from the deployed site.
